@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="5a6183d" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="5bb6870" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
   <bpmn:collaboration id="Collaboration_0wvcj1l" name="2. Modern Tool Use">
     <bpmn:participant id="Participant_145stw8" processRef="Process_95xm0hz" />
-    <bpmn:participant id="Participant_0tnqy1c" name="MCP Server One" />
-    <bpmn:participant id="Participant_0ia4r44" name="MCP Server Two" />
+    <bpmn:participant id="Participant_0tnqy1c" name="MCP Server" />
+    <bpmn:participant id="Participant_092j2gd" name="Hubspot Instance" />
+    <bpmn:participant id="Participant_07oscts" name="Salesforce" />
     <bpmn:messageFlow id="Flow_1k76tly" sourceRef="Activity_1bp5mpr" targetRef="Participant_0tnqy1c" />
     <bpmn:messageFlow id="Flow_1p7gdyo" sourceRef="Participant_0tnqy1c" targetRef="Activity_1bp5mpr" />
-    <bpmn:messageFlow id="Flow_0hxs5vo" sourceRef="Activity_0gblh4i" targetRef="Participant_0ia4r44" />
-    <bpmn:messageFlow id="Flow_0n4zu9p" sourceRef="Participant_0ia4r44" targetRef="Activity_0gblh4i" />
+    <bpmn:messageFlow id="Flow_1v61v66" sourceRef="Activity_1rm4n3q" targetRef="Participant_092j2gd" />
+    <bpmn:messageFlow id="Flow_1dr564d" sourceRef="Participant_092j2gd" targetRef="Activity_1rm4n3q" />
+    <bpmn:messageFlow id="Flow_1r6xj35" sourceRef="Activity_1698ymf" targetRef="Participant_07oscts" />
+    <bpmn:messageFlow id="Flow_0pg7ovo" sourceRef="Participant_07oscts" targetRef="Activity_1698ymf" />
   </bpmn:collaboration>
   <bpmn:process id="Process_95xm0hz" name="ReAct Agent" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1" name="Request">
@@ -23,15 +26,11 @@
       <bpmn:outgoing>Flow_13o5f0e</bpmn:outgoing>
       <bpmn:outgoing>Flow_1pxgrwz</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:endEvent id="Event_0xd3qsa" name="Output">
-      <bpmn:incoming>Flow_1pxgrwz</bpmn:incoming>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_120zezo" />
-    </bpmn:endEvent>
     <bpmn:adHocSubProcess id="Activity_14iiicl" name="Tools">
       <bpmn:incoming>Flow_13o5f0e</bpmn:incoming>
       <bpmn:outgoing>Flow_1imyyb0</bpmn:outgoing>
       <bpmn:multiInstanceLoopCharacteristics />
-      <bpmn:serviceTask id="Activity_0gblh4i" name="MCP Server Two" zeebe:modelerTemplate="9aa980ca-810c-45da-ac27-8df0e14dd2e5" zeebe:modelerTemplateVersion="1752044944661" zeebe:modelerTemplateIcon="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgMjAwIDIwMCI+CiAgICA8cGF0aCBkPSJNMjUgOTcuODUyOEw5Mi44ODIzIDI5Ljk3MDZDMTAyLjI1NSAyMC41OTggMTE3LjQ1MSAyMC41OTggMTI2LjgyMyAyOS45NzA2VjI5Ljk3MDZDMTM2LjE5NiAzOS4zNDMxIDEzNi4xOTYgNTQuNTM5MSAxMjYuODIzIDYzLjkxMTdMNzUuNTU4MSAxMTUuMTc3IiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjEyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICAgIDxwYXRoIGQ9Ik03Ni4yNjUzIDExNC40N0wxMjYuODIzIDYzLjkxMTdDMTM2LjE5NiA1NC41MzkxIDE1MS4zOTIgNTQuNTM5MSAxNjAuNzY1IDYzLjkxMTdMMTYxLjExOCA2NC4yNjUyQzE3MC40OTEgNzMuNjM3OCAxNzAuNDkxIDg4LjgzMzggMTYxLjExOCA5OC4yMDYzTDk5LjcyNDggMTU5LjZDOTYuNjAwNiAxNjIuNzI0IDk2LjYwMDYgMTY3Ljc4OSA5OS43MjQ4IDE3MC45MTNMMTEyLjMzMSAxODMuNTIiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMTIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogICAgPHBhdGggZD0iTTEwOS44NTMgNDYuOTQxMUw1OS42NDgyIDk3LjE0NTdDNTAuMjc1NyAxMDYuNTE4IDUwLjI3NTcgMTIxLjcxNCA1OS42NDgyIDEzMS4wODdWMTMxLjA4N0M2OS4wMjA4IDE0MC40NTkgODQuMjE2OCAxNDAuNDU5IDkzLjU4OTQgMTMxLjA4N0wxNDMuNzk0IDgwLjg4MjIiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMTIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K">
+      <bpmn:serviceTask id="Activity_1bp5mpr" name="MCP Client" zeebe:modelerTemplate="9aa980ca-810c-45da-ac27-8df0e14dd2e5" zeebe:modelerTemplateVersion="1752044944661" zeebe:modelerTemplateIcon="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgMjAwIDIwMCI+CiAgICA8cGF0aCBkPSJNMjUgOTcuODUyOEw5Mi44ODIzIDI5Ljk3MDZDMTAyLjI1NSAyMC41OTggMTE3LjQ1MSAyMC41OTggMTI2LjgyMyAyOS45NzA2VjI5Ljk3MDZDMTM2LjE5NiAzOS4zNDMxIDEzNi4xOTYgNTQuNTM5MSAxMjYuODIzIDYzLjkxMTdMNzUuNTU4MSAxMTUuMTc3IiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjEyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICAgIDxwYXRoIGQ9Ik03Ni4yNjUzIDExNC40N0wxMjYuODIzIDYzLjkxMTdDMTM2LjE5NiA1NC41MzkxIDE1MS4zOTIgNTQuNTM5MSAxNjAuNzY1IDYzLjkxMTdMMTYxLjExOCA2NC4yNjUyQzE3MC40OTEgNzMuNjM3OCAxNzAuNDkxIDg4LjgzMzggMTYxLjExOCA5OC4yMDYzTDk5LjcyNDggMTU5LjZDOTYuNjAwNiAxNjIuNzI0IDk2LjYwMDYgMTY3Ljc4OSA5OS43MjQ4IDE3MC45MTNMMTEyLjMzMSAxODMuNTIiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMTIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogICAgPHBhdGggZD0iTTEwOS44NTMgNDYuOTQxMUw1OS42NDgyIDk3LjE0NTdDNTAuMjc1NyAxMDYuNTE4IDUwLjI3NTcgMTIxLjcxNCA1OS42NDgyIDEzMS4wODdWMTMxLjA4N0M2OS4wMjA4IDE0MC40NTkgODQuMjE2OCAxNDAuNDU5IDkzLjU4OTQgMTMxLjA4N0wxNDMuNzk0IDgwLjg4MjIiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMTIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K">
         <bpmn:extensionElements>
           <zeebe:taskDefinition type="io.camunda.agenticai:mcpclient:0" retries="3" />
           <zeebe:ioMapping>
@@ -47,24 +46,124 @@
           </zeebe:taskHeaders>
         </bpmn:extensionElements>
       </bpmn:serviceTask>
-      <bpmn:serviceTask id="Activity_1bp5mpr" name="MCP Server One" zeebe:modelerTemplate="9aa980ca-810c-45da-ac27-8df0e14dd2e5" zeebe:modelerTemplateVersion="1752044944661" zeebe:modelerTemplateIcon="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgMjAwIDIwMCI+CiAgICA8cGF0aCBkPSJNMjUgOTcuODUyOEw5Mi44ODIzIDI5Ljk3MDZDMTAyLjI1NSAyMC41OTggMTE3LjQ1MSAyMC41OTggMTI2LjgyMyAyOS45NzA2VjI5Ljk3MDZDMTM2LjE5NiAzOS4zNDMxIDEzNi4xOTYgNTQuNTM5MSAxMjYuODIzIDYzLjkxMTdMNzUuNTU4MSAxMTUuMTc3IiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjEyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICAgIDxwYXRoIGQ9Ik03Ni4yNjUzIDExNC40N0wxMjYuODIzIDYzLjkxMTdDMTM2LjE5NiA1NC41MzkxIDE1MS4zOTIgNTQuNTM5MSAxNjAuNzY1IDYzLjkxMTdMMTYxLjExOCA2NC4yNjUyQzE3MC40OTEgNzMuNjM3OCAxNzAuNDkxIDg4LjgzMzggMTYxLjExOCA5OC4yMDYzTDk5LjcyNDggMTU5LjZDOTYuNjAwNiAxNjIuNzI0IDk2LjYwMDYgMTY3Ljc4OSA5OS43MjQ4IDE3MC45MTNMMTEyLjMzMSAxODMuNTIiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMTIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogICAgPHBhdGggZD0iTTEwOS44NTMgNDYuOTQxMUw1OS42NDgyIDk3LjE0NTdDNTAuMjc1NyAxMDYuNTE4IDUwLjI3NTcgMTIxLjcxNCA1OS42NDgyIDEzMS4wODdWMTMxLjA4N0M2OS4wMjA4IDE0MC40NTkgODQuMjE2OCAxNDAuNDU5IDkzLjU4OTQgMTMxLjA4N0wxNDMuNzk0IDgwLjg4MjIiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMTIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K">
+      <bpmn:serviceTask id="Activity_1rm4n3q" name="Get Data from Hubspot" zeebe:modelerTemplate="io.camunda.connectors.HubSpot.v1" zeebe:modelerTemplateVersion="1" zeebe:modelerTemplateIcon="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjI1MDAiIHZpZXdCb3g9IjYuMjA4NTYyODMgLjY0NDk4ODI0IDI0NC4yNjk0MzcxNyAyNTEuMjQ3MDExNzYiIHdpZHRoPSIyNTAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Im0xOTEuMzg1IDg1LjY5NHYtMjkuNTA2YTIyLjcyMiAyMi43MjIgMCAwIDAgMTMuMTAxLTIwLjQ4di0uNjc3YzAtMTIuNTQ5LTEwLjE3My0yMi43MjItMjIuNzIxLTIyLjcyMmgtLjY3OGMtMTIuNTQ5IDAtMjIuNzIyIDEwLjE3My0yMi43MjIgMjIuNzIydi42NzdhMjIuNzIyIDIyLjcyMiAwIDAgMCAxMy4xMDEgMjAuNDh2MjkuNTA2YTY0LjM0MiA2NC4zNDIgMCAwIDAgLTMwLjU5NCAxMy40N2wtODAuOTIyLTYzLjAzYy41NzctMi4wODMuODc4LTQuMjI1LjkxMi02LjM3NWEyNS42IDI1LjYgMCAxIDAgLTI1LjYzMyAyNS41NSAyNS4zMjMgMjUuMzIzIDAgMCAwIDEyLjYwNy0zLjQzbDc5LjY4NSA2Mi4wMDdjLTE0LjY1IDIyLjEzMS0xNC4yNTggNTAuOTc0Ljk4NyA3Mi43bC0yNC4yMzYgMjQuMjQzYy0xLjk2LS42MjYtNC0uOTU5LTYuMDU3LS45ODctMTEuNjA3LjAxLTIxLjAxIDkuNDIzLTIxLjAwNyAyMS4wMy4wMDMgMTEuNjA2IDkuNDEyIDIxLjAxNCAyMS4wMTggMjEuMDE3IDExLjYwNy4wMDMgMjEuMDItOS40IDIxLjAzLTIxLjAwN2EyMC43NDcgMjAuNzQ3IDAgMCAwIC0uOTg4LTYuMDU2bDIzLjk3Ni0yMy45ODVjMjEuNDIzIDE2LjQ5MiA1MC44NDYgMTcuOTEzIDczLjc1OSAzLjU2MiAyMi45MTItMTQuMzUyIDM0LjQ3NS00MS40NDYgMjguOTg1LTY3LjkxOC01LjQ5LTI2LjQ3My0yNi44NzMtNDYuNzM0LTUzLjYwMy01MC43OTJtLTkuOTM4IDk3LjA0NGEzMy4xNyAzMy4xNyAwIDEgMSAwLTY2LjMxNmMxNy44NS42MjUgMzIgMTUuMjcyIDMyLjAxIDMzLjEzNC4wMDggMTcuODYtMTQuMTI3IDMyLjUyMi0zMS45NzcgMzMuMTY1IiBmaWxsPSIjZmY3YTU5Ii8+PC9zdmc+">
         <bpmn:extensionElements>
-          <zeebe:taskDefinition type="io.camunda.agenticai:mcpclient:0" retries="3" />
+          <zeebe:taskDefinition type="io.camunda:http-json:1" retries="3" />
           <zeebe:ioMapping>
-            <zeebe:input target="data.client.clientId" />
-            <zeebe:input source="=toolCall.method" target="data.operation.method" />
-            <zeebe:input source="=toolCall.params" target="data.operation.params" />
+            <zeebe:input source="bearer" target="authentication.type" />
+            <zeebe:input target="authentication.token" />
+            <zeebe:input source="contacts" target="operationGroup" />
+            <zeebe:input source="get-/crm/v3/objects/contacts_getPage" target="operationType" />
+            <zeebe:input source="=if list contains([&#34;post-api.hsforms.com/submissions&#34;], operationType) then &#34;https://api.hsforms.com&#34; else if list contains([&#34;post-/automation/v2/workflows/{workflowId}/enrollments/contacts&#34;], operationType) then &#34;https://api.hubapi.com&#34; else &#34;https://api.hubspot.com&#34;" target="baseUrl" />
+            <zeebe:input source="=&#34;/crm/v3/objects/contacts&#34;" target="operationPath" />
+            <zeebe:input source="={}" target="headers" />
+            <zeebe:input source="=if afterId != null then {&#34;after&#34;: afterId, &#34;limit&#34;: 100} else {&#34;limit&#34;: 100}" target="queryParameters" />
+            <zeebe:input source="GET" target="method" />
+            <zeebe:input source="= baseUrl + operationPath" target="url" />
           </zeebe:ioMapping>
           <zeebe:taskHeaders>
-            <zeebe:header key="elementTemplateVersion" value="0" />
-            <zeebe:header key="elementTemplateId" value="io.camunda.connectors.agenticai.mcp.client.v0" />
-            <zeebe:header key="resultVariable" value="toolCallResult" />
+            <zeebe:header key="retryBackoff" value="PT0S" />
+          </zeebe:taskHeaders>
+        </bpmn:extensionElements>
+      </bpmn:serviceTask>
+      <bpmn:serviceTask id="Activity_1698ymf" name="Access Salesforce Records" zeebe:modelerTemplate="io.camunda.connectors.Salesforce.v1" zeebe:modelerTemplateVersion="3" zeebe:modelerTemplateIcon="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCIgZmlsbD0icmdiKDAlLDAlLDAlKSIgeG1sbnM6dj0iaHR0cHM6Ly92ZWN0YS5pby9uYW5vIj48cGF0aCBkPSJNNC44MiAzLjA3NEMzLjM4MyAzLjE5MSAyLjE1NiA0LjE0MSAxLjcwNyA1LjVhMi44MSAyLjgxIDAgMCAwLS4xNzIgMS4wNTkgMi40NCAyLjQ0IDAgMCAwIC4xMjUuOTFsLjA1MS4xNzYtLjI4NS4yODFDLjkxOCA4LjQzNC42MzcgOC45NDUuNSA5LjYyMWE0LjAxIDQuMDEgMCAwIDAgLjAxMiAxLjIwMyAzLjEzIDMuMTMgMCAwIDAgLjg5MSAxLjYyNWMuNDYxLjQ2MS45NjEuNzM0IDEuNTgyLjg3MS4xODguMDM5LjY3Mi4wOS43MjcuMDc0LjAxNi0uMDA4LjA5LS4wMTYuMTYtLjAybC4xMzMtLjAxNi4xMzMuMjI3Yy45MDIgMS41MTIgMi43NTggMi4wMjcgNC4yNjYgMS4xODRhMy40OSAzLjQ5IDAgMCAwIDEuMDgyLTEuMDA0bC4xNDgtLjIzLjIzLjA3YTIuMTMgMi4xMyAwIDAgMCAuODgzLjEzMyAyLjg0IDIuODQgMCAwIDAgMS41Mi0uNSAzLjUyIDMuNTIgMCAwIDAgLjc4MS0uNzYyYy4wNzQtLjEwNS4xNDgtLjE4Ny4xNi0uMTg3cy4xMzMuMDEyLjI2Mi4wMjNjLjI2Mi4wMjcuNjA5LjAwNC45NjUtLjA2NmEzLjk5IDMuOTkgMCAwIDAgMi40OC0xLjY4NCAzLjkgMy45IDAgMCAwIC4xMTMtNC4xMjUgMy45MyAzLjkzIDAgMCAwLTIuNTIzLTEuODUyIDMuMzUgMy4zNSAwIDAgMC0xLjg3OS4wODZsLS4yNS4wN2EyLjI2IDIuMjYgMCAwIDEtLjA5NC0uMTI1IDMuODMgMy44MyAwIDAgMC0uNjIxLS42MDljLS40NTctLjM0NC0xLjA0Ny0uNTU1LTEuNjQxLS41ODItLjcxNS0uMDM5LTEuNDguMjU4LTIuMDUxLjc4MWwtLjE2NC4xNTItLjExMy0uMTIxYy0uNTgyLS42NDUtMS40NjUtMS4wOTQtMi4yNTgtMS4xNTItLjM0OC0uMDI3LS40MTQtLjAyNy0uNjEzLS4wMTJ6bS44NzkuNzdjLjc2Mi4xNzYgMS4zNzEuNjEzIDEuODMyIDEuMzEzbC4yMDcuMjk3Yy4wMTIgMCAuMTAyLS4xMTMuMjAzLS4yNTRhNC40MiA0LjQyIDAgMCAxIC4zNC0uNDAyYy44OTgtLjg4MyAyLjM1NS0uODc5IDMuMjUuMDE2LjE2NC4xNjQuMzEzLjM2Ny40NTcuNjI1LjA0My4wODIuMDkuMTQ1LjA5OC4xNDVzLjEwNS0uMDM1LjIwNy0uMDgyYTMuMjYgMy4yNiAwIDAgMSAxLjYyOS0uMjg1YzEuMjY2LjEyMSAyLjI4NS45MDIgMi43MzggMi4wOTRhNC41NCA0LjU0IDAgMCAxIC4xMDkuMzc1Yy4wNTkuMjMuMDU5LjI3LjA2My43MDcgMCAuNTEyLS4wMi42NDgtLjE1MiAxLjA0N2EzLjE2IDMuMTYgMCAwIDEtLjc3IDEuMjM0IDMuMTYgMy4xNiAwIDAgMS0xLjU1NS44NTljLS4zNC4wODItLjg1Mi4wOTQtMS4yNS4wMzFsLS4zMDEtLjAzOWE1LjY1IDUuNjUgMCAwIDAtLjEwOS4yMDdjLS4zMDUuNTk4LS44MjQgMS4wMzUtMS40MzQgMS4yMTEtLjU5LjE3Mi0xLjE2OC4xMDktMS43NS0uMTg0YTEuMTkgMS4xOSAwIDAgMC0uMTk1LS4wODJjLS4wMTEgMC0uMDgyLjExMy0uMTQ4LjI1LS4yNTQuNTYzLS42MjEuOTY1LTEuMTEzIDEuMjM4YTIuNTggMi41OCAwIDAgMS0yLjM3NSAwYy0uNTM1LS4yOTMtLjkyNi0uNzU4LTEuMTY4LTEuMzc1LS4wODYtLjIyMy0uMDYyLS4yMTEtLjQzNy0uMTQ4YTIuODggMi44OCAwIDAgMS0xLjAwNC0uMDI3Yy0xLjU0Ny0uMzg3LTIuMzQ4LTIuMDg2LTEuNjU2LTMuNTA4YTIuNTggMi41OCAwIDAgMSAuOTAyLTEuMDE2bC4yMTEtLjE0MWExLjU3IDEuNTcgMCAwIDAtLjA4Mi0uMjQyYy0uMTg0LS40OTYtLjI0Ni0uOTA2LS4xOTktMS4zNDguMTMzLTEuMzA1IDEuMDc4LTIuMzE2IDIuMzgzLTIuNTQ3YTMuOTQgMy45NCAwIDAgMSAxLjA3LjAzMXptLjExNyAzLjUxOWEzMi44MyAzMi44MyAwIDAgMC0uMDA0IDEuMDdsLjAwNCAxLjAzOS4xMzcuMDA0Yy4wOTguMDA0LjE0NSAwIC4xNTYtLjAyYTM2LjkzIDM2LjkzIDAgMCAwIC4wMDgtMi4wODIuMzkuMzkgMCAwIDAtLjMwMS0uMDEyem00LjMwOS0uMDA0Yy0uMTg3LjA0Ny0uMzMyLjE5NS0uMzk1LjQwMmEuODIuODIgMCAwIDAtLjA0My4xNzZjMCAuMDktLjAyMy4xMDktLjE0MS4xMDloLS4xMTNsLS4wMjMuMTA1YS44My44MyAwIDAgMC0uMDIzLjEyOWMwIC4wMTYuMDUxLjAyMy4xMTcuMDIzLjA3OCAwIC4xMTcuMDA4LjExNy4wMjNzLS4wNTEuMzAxLS4xMDUuNjI5Yy0uMTcyLjkzOC0uMTkxLjk4NC0uNDQ1Ljk4NEg4LjkzbC0uMDI3LjA3OGMtLjA0Ny4xMjUtLjAzOS4xNDUuMDYzLjE3Mi4xOTkuMDU1LjQ2MS0uMDI3LjU3NC0uMTguMTAyLS4xNDUuMTQ1LS4yOTcuMjctMS4wMDhsLjEyNS0uNjkxLjE3Mi0uMDA4Yy4xNjgtLjAxMi4xNjgtLjAxMi4xODQtLjA3NGEuNzguNzggMCAwIDAgLjAxNi0uMTI1bC4wMDQtLjA1OUg5Ljk4bC4wMTYtLjEwMmMuMDItLjE0MS4wODItLjI3Ny4xNDUtLjMwOS4wMjctLjAxNi4xMDUtLjAyNy4xOC0uMDIzbC4xMjkuMDA0LjAzOS0uMTA5YS4zOC4zOCAwIDAgMCAuMDI3LS4xMTdjLS4wNDMtLjA0My0uMjctLjA1OS0uMzkxLS4wMzF6bS02LjgwOS43MTFjLS4zNTkuMDgyLS40OTYuNDMtLjI1NC42NDguMDY2LjA1OS4xNDEuMDk0LjMzNi4xNTYuMzQ0LjEwNS40MTQuMTg0LjI4NS4zMTYtLjAzNS4wMzktLjA3LjA0My0uMjE5LjA0M3MtLjE5NS0uMDA4LS4zMjQtLjA3Yy0uMDgyLS4wMzktLjE1Mi0uMDYyLS4xNi0uMDUxYS45LjkgMCAwIDAtLjA1NS4xMDlsLS4wMzEuMDkuMTMzLjA2M2MuMzc5LjE3Ni44MzYuMTEzLjk2OS0uMTM3LjA1MS0uMTAyLjA1NS0uMjU0LjAwNC0uMzUycy0uMTQ1LS4xNTYtLjQzLS4yNWMtLjE5NS0uMDY2LS4yNjYtLjA5OC0uMjk3LS4xNDUtLjA0My0uMDU1LS4wNDMtLjA1OS0uMDA4LS4xMTMuMDItLjAzMS4wNjMtLjA2Ni4wOTQtLjA3OC4wNzQtLjAzMS4yNzMtLjAwOC40MjYuMDQ3LjA2Ni4wMjMuMTI5LjAzNS4xMzcuMDIzcy4wMzEtLjA1MS4wNTEtLjA5NGwuMDMxLS4wODItLjA2Ni0uMDQzYTEuMDEgMS4wMSAwIDAgMC0uNjIxLS4wODJ6bTEuNDExLS4wMDRjLS4xNTYuMDIzLS4yNzcuMDYzLS4zMi4wOTRzLS4wMzkuMDMxLjAwOC4xMjljLjAzNS4wODYuMDUxLjEwMi4wNzguMDkuMTg0LS4wNzQuNDY5LS4xMDIuNTktLjA1NS4wNzguMDI3LjEyNS4xMDIuMTI1LjE5NXYuMDc0bC0uMjI3LS4wMDhjLS4yODktLjAwOC0uNDI2LjAzMS0uNTU5LjE1Ni0uMTA1LjEwNS0uMTQ4LjIyMy0uMTI5LjM1OS4wNTUuMzQuNDUzLjQ1NyAxLjEwMi4zMTZsLjEwNS0uMDIzLjAxNi0uMzA5Yy4wMzUtLjY3Ni0uMDMxLS44OTUtLjI4NS0uOTg0YTEuMjYgMS4yNiAwIDAgMC0uNTA0LS4wMzV6bS40MTQuNzQybC4wNjYuMDEydi4zOThsLS4wOTguMDE2Yy0uMjUuMDMxLS40My0uMDA0LS40OC0uMDlhLjM4LjM4IDAgMCAxLS4wMjMtLjEyOWMwLS4wOTQuMDYzLS4xNjQuMTY0LS4xOTlhMS4zIDEuMyAwIDAgMSAuMzcxLS4wMDh6bTEuODItLjczNGMtLjM0LjA5OC0uNTA0LjM0NC0uNDg0Ljc0Mi4wMTYuMzE2LjEzNy41MDQuNDAyLjYwNS4yMjcuMDkuODM2LjA0Ny44MzYtLjA1OWEuODIuODIgMCAwIDAtLjA3NC0uMjAzbC0uMTA5LjAzMWExLjA2IDEuMDYgMCAwIDEtLjI3My4wMzVjLS4yMjMuMDA0LS4zNDgtLjA1NS0uNDE0LS4xOTUtLjAzMS0uMDUxLS4wNTEtLjExMy0uMDUxLS4xNDVWOC44NGwuNDg4LS4wMDQuNDg4LS4wMDh2LS4xNmMwLS4yNzMtLjExNy0uNDY5LS4zMjgtLjU2MmEuOTEuOTEgMCAwIDAtLjQ4LS4wMzF6bS4zMjQuMjQyYS4yOS4yOSAwIDAgMSAuMTc2LjIzNGwuMDA4LjA2My0uMzEyLjAwOGMtLjE2OCAwLS4zMiAwLS4zMzYtLjAwNC0uMDMxLS4wMTIuMDE2LS4xNzIuMDc0LS4yMzQuMDg2LS4wOTguMjQ2LS4xMjUuMzkxLS4wNjZ6bTAgMCIvPjxwYXRoIGQ9Ik04LjQzOCA4LjA3Yy0uMjAzLjA0Ny0uMzI0LjE1Ni0uMzU5LjMyLS4wNTUuMjIzLjA3NC4zNjcuNDEuNDczLjM0NC4xMDUuNDA2LjE0OC4zNjMuMjYyLS4wNTUuMTQ1LS4zMzIuMTYtLjU5OC4wMzUtLjA3OC0uMDM1LS4xNDUtLjA1OS0uMTUyLS4wNDdzLS4wMzEuMDU1LS4wNTUuMTA5bC0uMDMxLjA5LjEzMy4wNjNjLjQ4NC4yMjcgMS4wMTIuMDU5IDEuMDEyLS4zMi0uMDA0LS4yMDctLjEwNS0uMzAxLS40NjktLjQxOGExLjI4IDEuMjggMCAwIDEtLjI3My0uMTA5LjE0LjE0IDAgMCAxIC4wMDQtLjE5NWMuMDY2LS4wNTUuMzA5LS4wNTEuNDguMDEyLjA3LjAyMy4xMzMuMDM5LjE0NS4wMjdzLjAyNy0uMDUxLjA0Ny0uMDk0bC4wMzEtLjA4Mi0uMDY2LS4wNDNhMS4wMSAxLjAxIDAgMCAwLS42MjEtLjA4MnptMi40MS0uMDA0Yy0uMjcuMDU5LS40NTMuMjY2LS40OTYuNTYzLS4wNDcuMzQuMDg2LjY0NS4zMzYuNzc3LjExNy4wNTkuMzIuMDg2LjQ3My4wNTUuMjMtLjAzOS4zNzEtLjE0MS40NzMtLjMzMi4wNTEtLjA5OC4wNTUtLjEyNS4wNTUtLjM2M3MtLjAwNC0uMjY2LS4wNTUtLjM2N2MtLjA3LS4xMzMtLjE3Mi0uMjMtLjMwMS0uMjg1LS4xMTMtLjA1MS0uMzUyLS4wNzQtLjQ4NC0uMDQ3em0uMzcxLjI3N2MuMTE3LjA2Ni4xNDguMTU2LjE0OC40MjIgMCAuMTk1LS4wMDQuMjQ2LS4wNDMuMzA5LS4wNy4xMjEtLjE0NS4xNi0uMzAxLjE2cy0uMjI3LS4wMzktLjI5Ny0uMTcyYy0uMDYyLS4xMTctLjA2Mi0uNDczLS4wMDQtLjU5NC4wODYtLjE3Mi4zMTMtLjIyNy40OTYtLjEyNXptMS4yNS0uMjY1YS43NS43NSAwIDAgMC0uMTM3LjA2M2MtLjA3LjA0Ny0uMDc0LjA0My0uMDc0LS4wMiAwLS4wNTUtLjAwNC0uMDU1LS4xNDUtLjA1MWwtLjE0NS4wMDh2MS4zOTVoLjMwMWwuMDA4LS40NjFjLjAxMi0uMzkxLjAyLS40NzMuMDUxLS41MzEuMDU5LS4xMDkuMTUyLS4xNTYuMzA1LS4xNTZoLjEzM2wuMDM1LS4wOWMuMDU1LS4xNDUuMDQ3LS4xNTYtLjA2Mi0uMTc2LS4xMzctLjAxNi0uMTgtLjAxNi0uMjcuMDJ6bTAgMCIvPjxwYXRoIGQ9Ik0xMy4zOTUgOC4wODJjLS4zMDUuMDgyLS40NzMuMjk3LS40OTIuNjQ1LS4wMjcuNTcuNDA2Ljg2MyAxLjA0My43MDcuMTAyLS4wMjMuMTA1LS4wMzkuMDU1LS4xNjQtLjAyNy0uMDY2LS4wNDMtLjA4Ni0uMDctLjA3NGExLjI2IDEuMjYgMCAwIDEtLjQzNy4wMTJjLS4xODQtLjA2Mi0uMjctLjIwMy0uMjctLjQ0MSAwLS4xOC4wNDctLjI5Ny4xNDgtLjM4My4wOTQtLjA3OC4xNDEtLjA4Ni4zODMtLjA3NGwuMjA3LjAxNi4wMzktLjEwMmMuMDQzLS4xMTcuMDM5LS4xMjEtLjE0NS0uMTUyLS4xNzYtLjAzMS0uMzItLjAyNy0uNDYxLjAxMnptMCAwIi8+PHBhdGggZD0iTTE0LjYxNyA4LjA3OGMtLjMzMi4wOTQtLjQ5Mi4zNTUtLjQ2OS43NTguMDE2LjMwOS4xNjQuNTEyLjQ0MS41OTguMjM4LjA3Ljc5Ny4wMjMuNzk3LS4wN2EuODIuODIgMCAwIDAtLjA3NC0uMjAzbC0uMTA1LjAzMWMtLjA1OS4wMi0uMTg3LjAzNS0uMjgxLjAzNS0uMjc3IDAtLjQxNC0uMDk0LS40NDktLjMwNWwtLjAxNi0uMDgyLjQ4OC0uMDA0LjQ4OC0uMDA4di0uMTcyYy0uMDA0LS4yNy0uMTEzLS40NTMtLjMyNC0uNTUxLS4xMjUtLjA1NS0uMzUyLS4wNjYtLjQ5Ni0uMDI3em0uMzQuMjM4YS4yOS4yOSAwIDAgMSAuMTc2LjIzNGwuMDA4LjA2My0uMzEyLjAwOGMtLjE2OCAwLS4zMiAwLS4zMzYtLjAwNHMtLjAyLS4wMjctLjAwNC0uMDgyYy4wNzgtLjIyMy4yNTQtLjMwNS40NjktLjIxOXptMCAwIi8+PC9zdmc+">
+        <bpmn:extensionElements>
+          <zeebe:taskDefinition type="io.camunda:http-json:1" />
+          <zeebe:ioMapping>
+            <zeebe:input target="baseUrl" />
+            <zeebe:input source="v58.0" target="apiVersion" />
+            <zeebe:input target="authentication.type" />
+            <zeebe:input target="salesforceInteractionType" />
+            <zeebe:input source="20" target="connectionTimeoutInSeconds" />
+          </zeebe:ioMapping>
+          <zeebe:taskHeaders>
+            <zeebe:header key="elementTemplateVersion" value="3" />
+            <zeebe:header key="elementTemplateId" value="io.camunda.connectors.Salesforce.v1" />
+          </zeebe:taskHeaders>
+        </bpmn:extensionElements>
+      </bpmn:serviceTask>
+      <bpmn:serviceTask id="Activity_1m7bxoy" name="Send Email to Customer" zeebe:modelerTemplate="io.camunda.connectors.email.v1" zeebe:modelerTemplateVersion="3" zeebe:modelerTemplateIcon="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwXzkwXzI0MjApIj4KPHBhdGggZD0iTTguMzM4MzUgOS45NTM2NUwxMC4zODk0IDEyLjAxMDRMOC4zMzI2MiAxNC4wNjcyTDkuMTQ2MTYgMTQuODc1TDEyLjAxMDcgMTIuMDEwNEw5LjE0NjE2IDkuMTQ1ODNMOC4zMzgzNSA5Ljk1MzY1WiIgZmlsbD0iYmxhY2siLz4KPHBhdGggZD0iTTEyLjM0ODggOS45NTM2NUwxNC4zOTk4IDEyLjAxMDRMMTIuMzQzIDE0LjA2NzJMMTMuMTU2NiAxNC44NzVMMTYuMDIxMiAxMi4wMTA0TDEzLjE1NjYgOS4xNDU4M0wxMi4zNDg4IDkuOTUzNjVaIiBmaWxsPSJibGFjayIvPgo8cGF0aCBkPSJNMy45NzIgMTEuNDM3NUgxLjEyNTMzVjIuNzkyMTlMNy42NzM3NiA3LjMyMzk2QzcuNzY5NjcgNy4zOTA0OSA3Ljg4MzYgNy40MjYxNCA4LjAwMDMyIDcuNDI2MTRDOC4xMTcwNSA3LjQyNjE0IDguMjMwOTggNy4zOTA0OSA4LjMyNjg5IDcuMzIzOTZMMTQuODc1MyAyLjc5MjE5VjhIMTYuMDIxMlYyLjI3MDgzQzE2LjAyMTIgMS45NjY5NCAxNS45MDA0IDEuNjc1NDkgMTUuNjg1NiAxLjQ2MDYxQzE1LjQ3MDcgMS4yNDU3MiAxNS4xNzkyIDEuMTI1IDE0Ljg3NTMgMS4xMjVIMS4xMjUzM0MwLjgyMTQzMiAxLjEyNSAwLjUyOTk4NCAxLjI0NTcyIDAuMzE1MDk5IDEuNDYwNjFDMC4xMDAyMTQgMS42NzU0OSAtMC4wMjA1MDc4IDEuOTY2OTQgLTAuMDIwNTA3OCAyLjI3MDgzVjExLjQzNzVDLTAuMDIwNTA3OCAxMS43NDE0IDAuMTAwMjE0IDEyLjAzMjggMC4zMTUwOTkgMTIuMjQ3N0MwLjUyOTk4NCAxMi40NjI2IDAuODIxNDMyIDEyLjU4MzMgMS4xMjUzMyAxMi41ODMzSDMuOTcyVjExLjQzNzVaTTEzLjYxNDkgMi4yNzA4M0w4LjAwMDMyIDYuMTU1MjFMMi4zODU3NCAyLjI3MDgzSDEzLjYxNDlaIiBmaWxsPSIjRkM1RDBEIi8+CjxwYXRoIGQ9Ik00LjI4MjEgOS45NTM2NUw2LjMzMzE0IDEyLjAxMDRMNC4yNzYzNyAxNC4wNjcyTDUuMDg5OTEgMTQuODc1TDcuOTU0NDkgMTIuMDEwNEw1LjA4OTkxIDkuMTQ1ODNMNC4yODIxIDkuOTUzNjVaIiBmaWxsPSJibGFjayIvPgo8L2c+CjxkZWZzPgo8Y2xpcFBhdGggaWQ9ImNsaXAwXzkwXzI0MjAiPgo8cmVjdCB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIGZpbGw9IndoaXRlIi8+CjwvY2xpcFBhdGg+CjwvZGVmcz4KPC9zdmc+Cg==">
+        <bpmn:extensionElements>
+          <zeebe:taskDefinition type="io.camunda:email:1" retries="3" />
+          <zeebe:ioMapping>
+            <zeebe:input source="simple" target="authentication.type" />
+            <zeebe:input target="authentication.username" />
+            <zeebe:input target="authentication.password" />
+            <zeebe:input source="smtp" target="protocol" />
+            <zeebe:input target="data.smtpConfig.smtpHost" />
+            <zeebe:input source="=587" target="data.smtpConfig.smtpPort" />
+            <zeebe:input source="TLS" target="data.smtpConfig.smtpCryptographicProtocol" />
+            <zeebe:input source="sendEmailSmtp" target="data.smtpActionDiscriminator" />
+            <zeebe:input target="data.smtpAction.from" />
+            <zeebe:input target="data.smtpAction.to" />
+            <zeebe:input target="data.smtpAction.subject" />
+            <zeebe:input source="PLAIN" target="data.smtpAction.contentType" />
+            <zeebe:input target="data.smtpAction.body" />
+          </zeebe:ioMapping>
+          <zeebe:taskHeaders>
+            <zeebe:header key="elementTemplateVersion" value="3" />
+            <zeebe:header key="elementTemplateId" value="io.camunda.connectors.email.v1" />
+            <zeebe:header key="retryBackoff" value="PT0S" />
+          </zeebe:taskHeaders>
+        </bpmn:extensionElements>
+      </bpmn:serviceTask>
+      <bpmn:serviceTask id="Activity_1p38qxc" name="Send message to Slack" zeebe:modelerTemplate="io.camunda.connectors.Slack.v1" zeebe:modelerTemplateVersion="7" zeebe:modelerTemplateIcon="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI3IiBoZWlnaHQ9IjEyNyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNMjcuMiA4MGMwIDcuMy01LjkgMTMuMi0xMy4yIDEzLjJDNi43IDkzLjIuOCA4Ny4zLjggODBjMC03LjMgNS45LTEzLjIgMTMuMi0xMy4yaDEzLjJWODB6bTYuNiAwYzAtNy4zIDUuOS0xMy4yIDEzLjItMTMuMiA3LjMgMCAxMy4yIDUuOSAxMy4yIDEzLjJ2MzNjMCA3LjMtNS45IDEzLjItMTMuMiAxMy4yLTcuMyAwLTEzLjItNS45LTEzLjItMTMuMlY4MHoiIGZpbGw9IiNFMDFFNUEiLz4KICA8cGF0aCBkPSJNNDcgMjdjLTcuMyAwLTEzLjItNS45LTEzLjItMTMuMkMzMy44IDYuNSAzOS43LjYgNDcgLjZjNy4zIDAgMTMuMiA1LjkgMTMuMiAxMy4yVjI3SDQ3em0wIDYuN2M3LjMgMCAxMy4yIDUuOSAxMy4yIDEzLjIgMCA3LjMtNS45IDEzLjItMTMuMiAxMy4ySDEzLjlDNi42IDYwLjEuNyA1NC4yLjcgNDYuOWMwLTcuMyA1LjktMTMuMiAxMy4yLTEzLjJINDd6IiBmaWxsPSIjMzZDNUYwIi8+CiAgPHBhdGggZD0iTTk5LjkgNDYuOWMwLTcuMyA1LjktMTMuMiAxMy4yLTEzLjIgNy4zIDAgMTMuMiA1LjkgMTMuMiAxMy4yIDAgNy4zLTUuOSAxMy4yLTEzLjIgMTMuMkg5OS45VjQ2Ljl6bS02LjYgMGMwIDcuMy01LjkgMTMuMi0xMy4yIDEzLjItNy4zIDAtMTMuMi01LjktMTMuMi0xMy4yVjEzLjhDNjYuOSA2LjUgNzIuOC42IDgwLjEuNmM3LjMgMCAxMy4yIDUuOSAxMy4yIDEzLjJ2MzMuMXoiIGZpbGw9IiMyRUI2N0QiLz4KICA8cGF0aCBkPSJNODAuMSA5OS44YzcuMyAwIDEzLjIgNS45IDEzLjIgMTMuMiAwIDcuMy01LjkgMTMuMi0xMy4yIDEzLjItNy4zIDAtMTMuMi01LjktMTMuMi0xMy4yVjk5LjhoMTMuMnptMC02LjZjLTcuMyAwLTEzLjItNS45LTEzLjItMTMuMiAwLTcuMyA1LjktMTMuMiAxMy4yLTEzLjJoMzMuMWM3LjMgMCAxMy4yIDUuOSAxMy4yIDEzLjIgMCA3LjMtNS45IDEzLjItMTMuMiAxMy4ySDgwLjF6IiBmaWxsPSIjRUNCMjJFIi8+Cjwvc3ZnPgo=">
+        <bpmn:extensionElements>
+          <zeebe:taskDefinition type="io.camunda:slack:1" retries="3" />
+          <zeebe:ioMapping>
+            <zeebe:input target="token" />
+            <zeebe:input source="chat.postMessage" target="method" />
+            <zeebe:input source="plainText" target="data.messageType" />
+            <zeebe:input target="data.text" />
+            <zeebe:input target="data.channel" />
+          </zeebe:ioMapping>
+          <zeebe:taskHeaders>
+            <zeebe:header key="elementTemplateVersion" value="7" />
+            <zeebe:header key="elementTemplateId" value="io.camunda.connectors.Slack.v1" />
+            <zeebe:header key="retryBackoff" value="PT0S" />
+          </zeebe:taskHeaders>
+        </bpmn:extensionElements>
+      </bpmn:serviceTask>
+      <bpmn:serviceTask id="Activity_0q0ogx7" name="Send Message to Teams" zeebe:modelerTemplate="io.camunda.connectors.MSTeams.v1" zeebe:modelerTemplateVersion="5" zeebe:modelerTemplateIcon="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIGhlaWdodD0nMTgnIHdpZHRoPScxOCcgdmlld0JveD0nLTMzNC4zMjQ5NSAtNTE4LjMzMzUgMjg5Ny40ODI5IDMxMTAuMDAxJz4KICAgIDxwYXRoIGQ9J00xNTU0LjYzNyA3NzcuNWg1NzUuNzEzYzU0LjM5MSAwIDk4LjQ4MyA0NC4wOTIgOTguNDgzIDk4LjQ4M3Y1MjQuMzk4YzAgMTk5LjkwMS0xNjIuMDUxIDM2MS45NTItMzYxLjk1MiAzNjEuOTUyaC0xLjcxMWMtMTk5LjkwMS4wMjgtMzYxLjk3NS0xNjItMzYyLjAwNC0zNjEuOTAxVjgyOC45NzFjLjAwMS0yOC40MjcgMjMuMDQ1LTUxLjQ3MSA1MS40NzEtNTEuNDcxeicKICAgICAgICAgIGZpbGw9JyM1MDU5QzknLz4KICAgIDxjaXJjbGUgcj0nMjMzLjI1JyBjeT0nNDQwLjU4MycgY3g9JzE5NDMuNzUnIGZpbGw9JyM1MDU5QzknLz4KICAgIDxjaXJjbGUgcj0nMzM2LjkxNycgY3k9JzMzNi45MTcnIGN4PScxMjE4LjA4MycgZmlsbD0nIzdCODNFQicvPgogICAgPHBhdGggZD0nTTE2NjcuMzIzIDc3Ny41SDcxNy4wMWMtNTMuNzQzIDEuMzMtOTYuMjU3IDQ1LjkzMS05NS4wMSA5OS42NzZ2NTk4LjEwNWMtNy41MDUgMzIyLjUxOSAyNDcuNjU3IDU5MC4xNiA1NzAuMTY3IDU5OC4wNTMgMzIyLjUxLTcuODkzIDU3Ny42NzEtMjc1LjUzNCA1NzAuMTY3LTU5OC4wNTNWODc3LjE3NmMxLjI0NS01My43NDUtNDEuMjY4LTk4LjM0Ni05NS4wMTEtOTkuNjc2eicKICAgICAgICAgIGZpbGw9JyM3QjgzRUInLz4KICAgIDxwYXRoIGQ9J00xMjQ0IDc3Ny41djgzOC4xNDVjLS4yNTggMzguNDM1LTIzLjU0OSA3Mi45NjQtNTkuMDkgODcuNTk4YTkxLjg1NiA5MS44NTYgMCAwMS0zNS43NjUgNy4yNTdINjY3LjYxM2MtNi43MzgtMTcuMTA1LTEyLjk1OC0zNC4yMS0xOC4xNDItNTEuODMzYTYzMS4yODcgNjMxLjI4NyAwIDAxLTI3LjQ3Mi0xODMuNDlWODc3LjAyYy0xLjI0Ni01My42NTkgNDEuMTk4LTk4LjE5IDk0Ljg1NS05OS41MnonCiAgICAgICAgICBvcGFjaXR5PScuMScvPgogICAgPHBhdGggZD0nTTExOTIuMTY3IDc3Ny41djg4OS45NzhhOTEuODAyIDkxLjgwMiAwIDAxLTcuMjU3IDM1Ljc2NWMtMTQuNjM0IDM1LjU0MS00OS4xNjMgNTguODMzLTg3LjU5OCA1OS4wOUg2OTEuOTc1Yy04LjgxMi0xNy4xMDUtMTcuMTA1LTM0LjIxLTI0LjM2Mi01MS44MzMtNy4yNTctMTcuNjIzLTEyLjk1OC0zNC4yMS0xOC4xNDItNTEuODMzYTYzMS4yODIgNjMxLjI4MiAwIDAxLTI3LjQ3Mi0xODMuNDlWODc3LjAyYy0xLjI0Ni01My42NTkgNDEuMTk4LTk4LjE5IDk0Ljg1NS05OS41MnonCiAgICAgICAgICBvcGFjaXR5PScuMicvPgogICAgPHBhdGggZD0nTTExOTIuMTY3IDc3Ny41djc4Ni4zMTJjLS4zOTUgNTIuMjIzLTQyLjYzMiA5NC40Ni05NC44NTUgOTQuODU1aC00NDcuODRBNjMxLjI4MiA2MzEuMjgyIDAgMDE2MjIgMTQ3NS4xNzdWODc3LjAyYy0xLjI0Ni01My42NTkgNDEuMTk4LTk4LjE5IDk0Ljg1NS05OS41MnonCiAgICAgICAgICBvcGFjaXR5PScuMicvPgogICAgPHBhdGggZD0nTTExNDAuMzMzIDc3Ny41djc4Ni4zMTJjLS4zOTUgNTIuMjIzLTQyLjYzMiA5NC40Ni05NC44NTUgOTQuODU1SDY0OS40NzJBNjMxLjI4MiA2MzEuMjgyIDAgMDE2MjIgMTQ3NS4xNzdWODc3LjAyYy0xLjI0Ni01My42NTkgNDEuMTk4LTk4LjE5IDk0Ljg1NS05OS41MnonCiAgICAgICAgICBvcGFjaXR5PScuMicvPgogICAgPHBhdGggZD0nTTEyNDQgNTA5LjUyMnYxNjMuMjc1Yy04LjgxMi41MTgtMTcuMTA1IDEuMDM3LTI1LjkxNyAxLjAzNy04LjgxMiAwLTE3LjEwNS0uNTE4LTI1LjkxNy0xLjAzN2EyODQuNDcyIDI4NC40NzIgMCAwMS01MS44MzMtOC4yOTNjLTEwNC45NjMtMjQuODU3LTE5MS42NzktOTguNDY5LTIzMy4yNS0xOTguMDAzYTI4OC4wMiAyODguMDIgMCAwMS0xNi41ODctNTEuODMzaDI1OC42NDhjNTIuMzA1LjE5OCA5NC42NTcgNDIuNTQ5IDk0Ljg1NiA5NC44NTR6JwogICAgICAgICAgb3BhY2l0eT0nLjEnLz4KICAgIDxwYXRoIGQ9J00xMTkyLjE2NyA1NjEuMzU1djExMS40NDJhMjg0LjQ3MiAyODQuNDcyIDAgMDEtNTEuODMzLTguMjkzYy0xMDQuOTYzLTI0Ljg1Ny0xOTEuNjc5LTk4LjQ2OS0yMzMuMjUtMTk4LjAwM2gxOTAuMjI4YzUyLjMwNC4xOTggOTQuNjU2IDQyLjU1IDk0Ljg1NSA5NC44NTR6JwogICAgICAgICAgb3BhY2l0eT0nLjInLz4KICAgIDxwYXRoIGQ9J00xMTkyLjE2NyA1NjEuMzU1djExMS40NDJhMjg0LjQ3MiAyODQuNDcyIDAgMDEtNTEuODMzLTguMjkzYy0xMDQuOTYzLTI0Ljg1Ny0xOTEuNjc5LTk4LjQ2OS0yMzMuMjUtMTk4LjAwM2gxOTAuMjI4YzUyLjMwNC4xOTggOTQuNjU2IDQyLjU1IDk0Ljg1NSA5NC44NTR6JwogICAgICAgICAgb3BhY2l0eT0nLjInLz4KICAgIDxwYXRoIGQ9J00xMTQwLjMzMyA1NjEuMzU1djEwMy4xNDhjLTEwNC45NjMtMjQuODU3LTE5MS42NzktOTguNDY5LTIzMy4yNS0xOTguMDAzaDEzOC4zOTVjNTIuMzA1LjE5OSA5NC42NTYgNDIuNTUxIDk0Ljg1NSA5NC44NTV6JwogICAgICAgICAgb3BhY2l0eT0nLjInLz4KICAgIDxsaW5lYXJHcmFkaWVudCBncmFkaWVudFRyYW5zZm9ybT0nbWF0cml4KDEgMCAwIC0xIDAgMjA3NS4zMzMpJyB5Mj0nMzk0LjI2MScgeDI9Jzk0Mi4yMzQnIHkxPScxNjgzLjA3MycgeDE9JzE5OC4wOTknCiAgICAgICAgICAgICAgICAgICAgZ3JhZGllbnRVbml0cz0ndXNlclNwYWNlT25Vc2UnIGlkPSdhJz4KICAgICAgICA8c3RvcCBvZmZzZXQ9JzAnIHN0b3AtY29sb3I9JyM1YTYyYzMnLz4KICAgICAgICA8c3RvcCBvZmZzZXQ9Jy41JyBzdG9wLWNvbG9yPScjNGQ1NWJkJy8+CiAgICAgICAgPHN0b3Agb2Zmc2V0PScxJyBzdG9wLWNvbG9yPScjMzk0MGFiJy8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPHBhdGggZD0nTTk1LjAxIDQ2Ni41aDk1MC4zMTJjNTIuNDczIDAgOTUuMDEgNDIuNTM4IDk1LjAxIDk1LjAxdjk1MC4zMTJjMCA1Mi40NzMtNDIuNTM4IDk1LjAxLTk1LjAxIDk1LjAxSDk1LjAxYy01Mi40NzMgMC05NS4wMS00Mi41MzgtOTUuMDEtOTUuMDFWNTYxLjUxYzAtNTIuNDcyIDQyLjUzOC05NS4wMSA5NS4wMS05NS4wMXonCiAgICAgICAgICBmaWxsPSd1cmwoI2EpJy8+CiAgICA8cGF0aCBkPSdNODIwLjIxMSA4MjguMTkzaC0xODkuOTd2NTE3LjI5N2gtMTIxLjAzVjgyOC4xOTNIMzIwLjEyM1Y3MjcuODQ0aDUwMC4wODh6JyBmaWxsPScjRkZGJy8+Cjwvc3ZnPg==">
+        <bpmn:extensionElements>
+          <zeebe:taskDefinition type="io.camunda:connector-microsoft-teams:1" retries="3" />
+          <zeebe:ioMapping>
+            <zeebe:input source="refresh" target="authentication.type" />
+            <zeebe:input target="authentication.token" />
+            <zeebe:input target="authentication.clientId" />
+            <zeebe:input target="authentication.tenantId" />
+            <zeebe:input source="chat" target="data.type" />
+            <zeebe:input source="sendMessageToChat" target="data.method" />
+            <zeebe:input target="data.chatId" />
+            <zeebe:input target="data.content" />
+            <zeebe:input source="TEXT" target="data.bodyType" />
+          </zeebe:ioMapping>
+          <zeebe:taskHeaders>
+            <zeebe:header key="elementTemplateVersion" value="5" />
+            <zeebe:header key="elementTemplateId" value="io.camunda.connectors.MSTeams.v1" />
+            <zeebe:header key="retryBackoff" value="PT0S" />
+          </zeebe:taskHeaders>
+        </bpmn:extensionElements>
+      </bpmn:serviceTask>
+      <bpmn:serviceTask id="Activity_0wi87jd" name="Query Database" zeebe:modelerTemplate="io.camunda.connectors.Jdbc.v1" zeebe:modelerTemplateVersion="2" zeebe:modelerTemplateIcon="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTMiIGhlaWdodD0iNTEyIiBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgNTEzIDUxMiI+CiAgPGcgY2xpcC1wYXRoPSJ1cmwoI2EpIj4KICAgIDxwYXRoIGZpbGw9IiMwMDAiIGQ9Ik00MjIuMDY5IDQxNi45OTVWMjUzLjA0NGgtMjQuNzU2VjQ0NC4zMmg5OS4wMjR2LTI3LjMyNWgtNzQuMjY4Wm0tNzQuMjY4LTE2My45NTFoLTQ5LjUxMmMtNi41NjUgMC0xMi44NjIgMi44NzktMTcuNTA1IDguMDA0LTQuNjQzIDUuMTI0LTcuMjUxIDEyLjA3NC03LjI1MSAxOS4zMjJ2MTM2LjYyNWMwIDcuMjQ3IDIuNjA4IDE0LjE5NyA3LjI1MSAxOS4zMjEgNC42NDMgNS4xMjUgMTAuOTQgOC4wMDQgMTcuNTA1IDguMDA0aDEyLjM3OHYyNy4zMjVjMCA3LjI0NyAyLjYwOCAxNC4xOTcgNy4yNTEgMTkuMzIxIDQuNjQzIDUuMTI1IDEwLjk0IDguMDA0IDE3LjUwNSA4LjAwNGgyNC43NTZ2LTI3LjMyNWgtMjQuNzU2VjQ0NC4zMmgxMi4zNzhjNi41NjYgMCAxMi44NjMtMi44NzkgMTcuNTA1LTguMDA0IDQuNjQzLTUuMTI0IDcuMjUxLTEyLjA3NCA3LjI1MS0xOS4zMjFWMjgwLjM3YzAtNy4yNDgtMi42MDgtMTQuMTk4LTcuMjUxLTE5LjMyMi00LjY0Mi01LjEyNS0xMC45MzktOC4wMDQtMTcuNTA1LTguMDA0Wm0tNDkuNTEyIDE2My45NTFWMjgwLjM3aDQ5LjUxMnYxMzYuNjI1aC00OS41MTJabS03NC4yNjggMjcuMzI1aC03NC4yNjh2LTI3LjMyNWg3NC4yNjh2LTU0LjY1aC00OS41MTJjLTYuNTY2IDAtMTIuODYyLTIuODc5LTE3LjUwNS04LjAwNC00LjY0My01LjEyNC03LjI1MS0xMi4wNzQtNy4yNTEtMTkuMzIxdi01NC42NWMwLTcuMjQ4IDIuNjA4LTE0LjE5OCA3LjI1MS0xOS4zMjIgNC42NDMtNS4xMjUgMTAuOTM5LTguMDA0IDE3LjUwNS04LjAwNGg3NC4yNjh2MjcuMzI2aC03NC4yNjh2NTQuNjVoNDkuNTEyYzYuNTY2IDAgMTIuODYzIDIuODc4IDE3LjUwNSA4LjAwMyA0LjY0MyA1LjEyNCA3LjI1MSAxMi4wNzUgNy4yNTEgMTkuMzIydjU0LjY1YzAgNy4yNDctMi42MDggMTQuMTk3LTcuMjUxIDE5LjMyMS00LjY0MiA1LjEyNS0xMC45MzkgOC4wMDQtMTcuNTA1IDguMDA0WiIvPgogICAgPHBhdGggZmlsbD0iI0M2MjlDRCIgZD0iTTE2MC42OTUgMTMuMDMyYy02My4wNjYgMC0xMzAuOTQzIDE2LjQ1LTEzMC45NDMgNTIuNTU3djIzNi41MDZjMCAyMi4wNyAyNS40MDMgMzYuNzYyIDU5LjUyIDQ0Ljg3di0yNi44ODJjLTIzLjczNi02LjIxLTM1LjA2LTE1LjAxOS0zNS43MTItMTcuOTg4di00Ni45MzhjMTcuNzggOS44NDIgMTcuNzMzIDkuMTg1IDQ1LjQyNCAxMi4wMDl2LTI2LjI0N2MtNDYuMTYyLTQuOTU5LTQzLjk2NS0xMS44OTktNDUuNDI0LTE3LjY2MXYtNDYuOTM3YzI1LjMzIDE0LjAyNSA2Ny4xNjkgMjAuNjU5IDEwNy4xMzUgMjAuNjU5IDYzLjA2NiAwIDEzMC45NDMtMTYuNDUxIDEzMC45NDMtNTIuNTU3di03OC44NGMtLjAwOS0zNi4xMDctNjcuODgxLTUyLjU1LTEzMC45NDMtNTIuNTVaTTUzLjU0MiA2NS43ODdjMS44MTMtNy4yOTUgMzcuNTE0LTI2LjQ3NyAxMDcuMTUzLTI2LjQ3NyA2OS4wMTQgMCAxMDQuNjk0IDE4Ljg0MyAxMDcuMDk3IDI2LjI3OS0yLjQwMyA3LjQzNS0zOC4wODMgMjYuMjc4LTEwNy4wOTcgMjYuMjc4LTY5LjYzOSAwLTEwNS4zMzktMTkuMTgzLTEwNy4xNTMtMjYuMDhabTIxNC4yODggNzguNDdjLTEuOTEyIDcuMzItMzcuNjAxIDI2LjQ0Ni0xMDcuMTM1IDI2LjQ0Ni02OS42MzkgMC0xMDUuMzM5LTE5LjE4NC0xMDcuMTM1LTI2LjI3OVY5Ny40ODdjMjUuMzMgMTQuMDI1IDY3LjE2OSAyMC42NTkgMTA3LjEzNSAyMC42NTkgMzkuOTY2IDAgODEuODA1LTYuNjM0IDEwNy4xMzUtMjAuNjU5djQ2Ljc3WiIvPgogIDwvZz4KICA8ZGVmcz4KICAgIDxjbGlwUGF0aCBpZD0iYSI+CiAgICAgIDxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0yOS43NTQgNmg0NTIuOTkxdjUwMEgyOS43NTR6Ii8+CiAgICA8L2NsaXBQYXRoPgogIDwvZGVmcz4KPC9zdmc+Cg==">
+        <bpmn:extensionElements>
+          <zeebe:taskDefinition type="io.camunda:connector-jdbc:1" retries="3" />
+          <zeebe:ioMapping>
+            <zeebe:input target="database" />
+            <zeebe:input source="uri" target="connection.authType" />
+            <zeebe:input target="connection.uri" />
+            <zeebe:input source="=false" target="data.returnResults" />
+            <zeebe:input target="data.query" />
+          </zeebe:ioMapping>
+          <zeebe:taskHeaders>
+            <zeebe:header key="elementTemplateVersion" value="2" />
+            <zeebe:header key="elementTemplateId" value="io.camunda.connectors.Jdbc.v1" />
             <zeebe:header key="retryBackoff" value="PT0S" />
           </zeebe:taskHeaders>
         </bpmn:extensionElements>
       </bpmn:serviceTask>
     </bpmn:adHocSubProcess>
-    <bpmn:serviceTask id="Activity_0xz2wmc" name="Parent Agent" zeebe:modelerTemplate="io.camunda.connectors.agenticai.aiagent.v1" zeebe:modelerTemplateVersion="1" zeebe:modelerTemplateIcon="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiNBNTZFRkYiLz4KPG1hc2sgaWQ9InBhdGgtMi1vdXRzaWRlLTFfMTg1XzYiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjQiIHk9IjQiIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iYmxhY2siPgo8cmVjdCBmaWxsPSJ3aGl0ZSIgeD0iNCIgeT0iNCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ii8+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMjAuMDEwNSAxMi4wOTg3QzE4LjQ5IDEwLjU4OTQgMTcuMTU5NCA4LjEwODE0IDE2LjE3OTkgNi4wMTEwM0MxNi4xNTIgNi4wMDQ1MSAxNi4xMTc2IDYgMTYuMDc5NCA2QzE2LjA0MTEgNiAxNi4wMDY2IDYuMDA0NTEgMTUuOTc4OCA2LjAxMTA0QzE0Ljk5OTQgOC4xMDgxNCAxMy42Njk3IDEwLjU4ODkgMTIuMTQ4MSAxMi4wOTgxQzEwLjYyNjkgMTMuNjA3MSA4LjEyNTY4IDE0LjkyNjQgNi4wMTE1NyAxNS44OTgxQzYuMDA0NzQgMTUuOTI2MSA2IDE1Ljk2MTEgNiAxNkM2IDE2LjAzODcgNi4wMDQ2OCAxNi4wNzM2IDYuMDExNDQgMTYuMTAxNEM4LjEyNTE5IDE3LjA3MjkgMTAuNjI2MiAxOC4zOTE5IDEyLjE0NzcgMTkuOTAxNkMxMy42Njk3IDIxLjQxMDcgMTQuOTk5NiAyMy44OTIgMTUuOTc5MSAyNS45ODlDMTYuMDA2OCAyNS45OTU2IDE2LjA0MTEgMjYgMTYuMDc5MyAyNkMxNi4xMTc1IDI2IDE2LjE1MTkgMjUuOTk1NCAxNi4xNzk2IDI1Ljk4OUMxNy4xNTkxIDIzLjg5MiAxOC40ODg4IDIxLjQxMSAyMC4wMDk5IDE5LjkwMjFNMjAuMDA5OSAxOS45MDIxQzIxLjUyNTMgMTguMzk4NyAyMy45NDY1IDE3LjA2NjkgMjUuOTkxNSAxNi4wODI0QzI1Ljk5NjUgMTYuMDU5MyAyNiAxNi4wMzEgMjYgMTUuOTk5N0MyNiAxNS45Njg0IDI1Ljk5NjUgMTUuOTQwMyAyNS45OTE1IDE1LjkxNzFDMjMuOTQ3NCAxNC45MzI3IDIxLjUyNTkgMTMuNjAxIDIwLjAxMDUgMTIuMDk4NyIvPgo8L21hc2s+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMjAuMDEwNSAxMi4wOTg3QzE4LjQ5IDEwLjU4OTQgMTcuMTU5NCA4LjEwODE0IDE2LjE3OTkgNi4wMTEwM0MxNi4xNTIgNi4wMDQ1MSAxNi4xMTc2IDYgMTYuMDc5NCA2QzE2LjA0MTEgNiAxNi4wMDY2IDYuMDA0NTEgMTUuOTc4OCA2LjAxMTA0QzE0Ljk5OTQgOC4xMDgxNCAxMy42Njk3IDEwLjU4ODkgMTIuMTQ4MSAxMi4wOTgxQzEwLjYyNjkgMTMuNjA3MSA4LjEyNTY4IDE0LjkyNjQgNi4wMTE1NyAxNS44OTgxQzYuMDA0NzQgMTUuOTI2MSA2IDE1Ljk2MTEgNiAxNkM2IDE2LjAzODcgNi4wMDQ2OCAxNi4wNzM2IDYuMDExNDQgMTYuMTAxNEM4LjEyNTE5IDE3LjA3MjkgMTAuNjI2MiAxOC4zOTE5IDEyLjE0NzcgMTkuOTAxNkMxMy42Njk3IDIxLjQxMDcgMTQuOTk5NiAyMy44OTIgMTUuOTc5MSAyNS45ODlDMTYuMDA2OCAyNS45OTU2IDE2LjA0MTEgMjYgMTYuMDc5MyAyNkMxNi4xMTc1IDI2IDE2LjE1MTkgMjUuOTk1NCAxNi4xNzk2IDI1Ljk4OUMxNy4xNTkxIDIzLjg5MiAxOC40ODg4IDIxLjQxMSAyMC4wMDk5IDE5LjkwMjFNMjAuMDA5OSAxOS45MDIxQzIxLjUyNTMgMTguMzk4NyAyMy45NDY1IDE3LjA2NjkgMjUuOTkxNSAxNi4wODI0QzI1Ljk5NjUgMTYuMDU5MyAyNiAxNi4wMzEgMjYgMTUuOTk5N0MyNiAxNS45Njg0IDI1Ljk5NjUgMTUuOTQwMyAyNS45OTE1IDE1LjkxNzFDMjMuOTQ3NCAxNC45MzI3IDIxLjUyNTkgMTMuNjAxIDIwLjAxMDUgMTIuMDk4NyIgZmlsbD0id2hpdGUiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yMC4wMTA1IDEyLjA5ODdDMTguNDkgMTAuNTg5NCAxNy4xNTk0IDguMTA4MTQgMTYuMTc5OSA2LjAxMTAzQzE2LjE1MiA2LjAwNDUxIDE2LjExNzYgNiAxNi4wNzk0IDZDMTYuMDQxMSA2IDE2LjAwNjYgNi4wMDQ1MSAxNS45Nzg4IDYuMDExMDRDMTQuOTk5NCA4LjEwODE0IDEzLjY2OTcgMTAuNTg4OSAxMi4xNDgxIDEyLjA5ODFDMTAuNjI2OSAxMy42MDcxIDguMTI1NjggMTQuOTI2NCA2LjAxMTU3IDE1Ljg5ODFDNi4wMDQ3NCAxNS45MjYxIDYgMTUuOTYxMSA2IDE2QzYgMTYuMDM4NyA2LjAwNDY4IDE2LjA3MzYgNi4wMTE0NCAxNi4xMDE0QzguMTI1MTkgMTcuMDcyOSAxMC42MjYyIDE4LjM5MTkgMTIuMTQ3NyAxOS45MDE2QzEzLjY2OTcgMjEuNDEwNyAxNC45OTk2IDIzLjg5MiAxNS45NzkxIDI1Ljk4OUMxNi4wMDY4IDI1Ljk5NTYgMTYuMDQxMSAyNiAxNi4wNzkzIDI2QzE2LjExNzUgMjYgMTYuMTUxOSAyNS45OTU0IDE2LjE3OTYgMjUuOTg5QzE3LjE1OTEgMjMuODkyIDE4LjQ4ODggMjEuNDExIDIwLjAwOTkgMTkuOTAyMU0yMC4wMDk5IDE5LjkwMjFDMjEuNTI1MyAxOC4zOTg3IDIzLjk0NjUgMTcuMDY2OSAyNS45OTE1IDE2LjA4MjRDMjUuOTk2NSAxNi4wNTkzIDI2IDE2LjAzMSAyNiAxNS45OTk3QzI2IDE1Ljk2ODQgMjUuOTk2NSAxNS45NDAzIDI1Ljk5MTUgMTUuOTE3MUMyMy45NDc0IDE0LjkzMjcgMjEuNTI1OSAxMy42MDEgMjAuMDEwNSAxMi4wOTg3IiBzdHJva2U9IiM0OTFEOEIiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgbWFzaz0idXJsKCNwYXRoLTItb3V0c2lkZS0xXzE4NV82KSIvPgo8L3N2Zz4K">
+    <bpmn:serviceTask id="Activity_0xz2wmc" name="Agent LLM" zeebe:modelerTemplate="io.camunda.connectors.agenticai.aiagent.v1" zeebe:modelerTemplateVersion="1" zeebe:modelerTemplateIcon="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiNBNTZFRkYiLz4KPG1hc2sgaWQ9InBhdGgtMi1vdXRzaWRlLTFfMTg1XzYiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjQiIHk9IjQiIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iYmxhY2siPgo8cmVjdCBmaWxsPSJ3aGl0ZSIgeD0iNCIgeT0iNCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ii8+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMjAuMDEwNSAxMi4wOTg3QzE4LjQ5IDEwLjU4OTQgMTcuMTU5NCA4LjEwODE0IDE2LjE3OTkgNi4wMTEwM0MxNi4xNTIgNi4wMDQ1MSAxNi4xMTc2IDYgMTYuMDc5NCA2QzE2LjA0MTEgNiAxNi4wMDY2IDYuMDA0NTEgMTUuOTc4OCA2LjAxMTA0QzE0Ljk5OTQgOC4xMDgxNCAxMy42Njk3IDEwLjU4ODkgMTIuMTQ4MSAxMi4wOTgxQzEwLjYyNjkgMTMuNjA3MSA4LjEyNTY4IDE0LjkyNjQgNi4wMTE1NyAxNS44OTgxQzYuMDA0NzQgMTUuOTI2MSA2IDE1Ljk2MTEgNiAxNkM2IDE2LjAzODcgNi4wMDQ2OCAxNi4wNzM2IDYuMDExNDQgMTYuMTAxNEM4LjEyNTE5IDE3LjA3MjkgMTAuNjI2MiAxOC4zOTE5IDEyLjE0NzcgMTkuOTAxNkMxMy42Njk3IDIxLjQxMDcgMTQuOTk5NiAyMy44OTIgMTUuOTc5MSAyNS45ODlDMTYuMDA2OCAyNS45OTU2IDE2LjA0MTEgMjYgMTYuMDc5MyAyNkMxNi4xMTc1IDI2IDE2LjE1MTkgMjUuOTk1NCAxNi4xNzk2IDI1Ljk4OUMxNy4xNTkxIDIzLjg5MiAxOC40ODg4IDIxLjQxMSAyMC4wMDk5IDE5LjkwMjFNMjAuMDA5OSAxOS45MDIxQzIxLjUyNTMgMTguMzk4NyAyMy45NDY1IDE3LjA2NjkgMjUuOTkxNSAxNi4wODI0QzI1Ljk5NjUgMTYuMDU5MyAyNiAxNi4wMzEgMjYgMTUuOTk5N0MyNiAxNS45Njg0IDI1Ljk5NjUgMTUuOTQwMyAyNS45OTE1IDE1LjkxNzFDMjMuOTQ3NCAxNC45MzI3IDIxLjUyNTkgMTMuNjAxIDIwLjAxMDUgMTIuMDk4NyIvPgo8L21hc2s+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMjAuMDEwNSAxMi4wOTg3QzE4LjQ5IDEwLjU4OTQgMTcuMTU5NCA4LjEwODE0IDE2LjE3OTkgNi4wMTEwM0MxNi4xNTIgNi4wMDQ1MSAxNi4xMTc2IDYgMTYuMDc5NCA2QzE2LjA0MTEgNiAxNi4wMDY2IDYuMDA0NTEgMTUuOTc4OCA2LjAxMTA0QzE0Ljk5OTQgOC4xMDgxNCAxMy42Njk3IDEwLjU4ODkgMTIuMTQ4MSAxMi4wOTgxQzEwLjYyNjkgMTMuNjA3MSA4LjEyNTY4IDE0LjkyNjQgNi4wMTE1NyAxNS44OTgxQzYuMDA0NzQgMTUuOTI2MSA2IDE1Ljk2MTEgNiAxNkM2IDE2LjAzODcgNi4wMDQ2OCAxNi4wNzM2IDYuMDExNDQgMTYuMTAxNEM4LjEyNTE5IDE3LjA3MjkgMTAuNjI2MiAxOC4zOTE5IDEyLjE0NzcgMTkuOTAxNkMxMy42Njk3IDIxLjQxMDcgMTQuOTk5NiAyMy44OTIgMTUuOTc5MSAyNS45ODlDMTYuMDA2OCAyNS45OTU2IDE2LjA0MTEgMjYgMTYuMDc5MyAyNkMxNi4xMTc1IDI2IDE2LjE1MTkgMjUuOTk1NCAxNi4xNzk2IDI1Ljk4OUMxNy4xNTkxIDIzLjg5MiAxOC40ODg4IDIxLjQxMSAyMC4wMDk5IDE5LjkwMjFNMjAuMDA5OSAxOS45MDIxQzIxLjUyNTMgMTguMzk4NyAyMy45NDY1IDE3LjA2NjkgMjUuOTkxNSAxNi4wODI0QzI1Ljk5NjUgMTYuMDU5MyAyNiAxNi4wMzEgMjYgMTUuOTk5N0MyNiAxNS45Njg0IDI1Ljk5NjUgMTUuOTQwMyAyNS45OTE1IDE1LjkxNzFDMjMuOTQ3NCAxNC45MzI3IDIxLjUyNTkgMTMuNjAxIDIwLjAxMDUgMTIuMDk4NyIgZmlsbD0id2hpdGUiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yMC4wMTA1IDEyLjA5ODdDMTguNDkgMTAuNTg5NCAxNy4xNTk0IDguMTA4MTQgMTYuMTc5OSA2LjAxMTAzQzE2LjE1MiA2LjAwNDUxIDE2LjExNzYgNiAxNi4wNzk0IDZDMTYuMDQxMSA2IDE2LjAwNjYgNi4wMDQ1MSAxNS45Nzg4IDYuMDExMDRDMTQuOTk5NCA4LjEwODE0IDEzLjY2OTcgMTAuNTg4OSAxMi4xNDgxIDEyLjA5ODFDMTAuNjI2OSAxMy42MDcxIDguMTI1NjggMTQuOTI2NCA2LjAxMTU3IDE1Ljg5ODFDNi4wMDQ3NCAxNS45MjYxIDYgMTUuOTYxMSA2IDE2QzYgMTYuMDM4NyA2LjAwNDY4IDE2LjA3MzYgNi4wMTE0NCAxNi4xMDE0QzguMTI1MTkgMTcuMDcyOSAxMC42MjYyIDE4LjM5MTkgMTIuMTQ3NyAxOS45MDE2QzEzLjY2OTcgMjEuNDEwNyAxNC45OTk2IDIzLjg5MiAxNS45NzkxIDI1Ljk4OUMxNi4wMDY4IDI1Ljk5NTYgMTYuMDQxMSAyNiAxNi4wNzkzIDI2QzE2LjExNzUgMjYgMTYuMTUxOSAyNS45OTU0IDE2LjE3OTYgMjUuOTg5QzE3LjE1OTEgMjMuODkyIDE4LjQ4ODggMjEuNDExIDIwLjAwOTkgMTkuOTAyMU0yMC4wMDk5IDE5LjkwMjFDMjEuNTI1MyAxOC4zOTg3IDIzLjk0NjUgMTcuMDY2OSAyNS45OTE1IDE2LjA4MjRDMjUuOTk2NSAxNi4wNTkzIDI2IDE2LjAzMSAyNiAxNS45OTk3QzI2IDE1Ljk2ODQgMjUuOTk2NSAxNS45NDAzIDI1Ljk5MTUgMTUuOTE3MUMyMy45NDc0IDE0LjkzMjcgMjEuNTI1OSAxMy42MDEgMjAuMDEwNSAxMi4wOTg3IiBzdHJva2U9IiM0OTFEOEIiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgbWFzaz0idXJsKCNwYXRoLTItb3V0c2lkZS0xXzE4NV82KSIvPgo8L3N2Zz4K">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="io.camunda.agenticai:aiagent:1" retries="3" />
         <zeebe:ioMapping>
@@ -98,11 +197,15 @@
     <bpmn:sequenceFlow id="Flow_1wgvfcb" sourceRef="Activity_0xz2wmc" targetRef="Gateway_1156kfe" />
     <bpmn:sequenceFlow id="Flow_13o5f0e" sourceRef="Gateway_1156kfe" targetRef="Activity_14iiicl" />
     <bpmn:sequenceFlow id="Flow_1pxgrwz" sourceRef="Gateway_1156kfe" targetRef="Event_0xd3qsa" />
+    <bpmn:endEvent id="Event_0xd3qsa" name="Output">
+      <bpmn:incoming>Flow_1pxgrwz</bpmn:incoming>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_120zezo" />
+    </bpmn:endEvent>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0wvcj1l">
       <bpmndi:BPMNShape id="Participant_145stw8_di" bpmnElement="Participant_145stw8" isHorizontal="true">
-        <dc:Bounds x="99" y="20" width="800" height="490" />
+        <dc:Bounds x="99" y="20" width="1061" height="490" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="150" y="62" width="36" height="36" />
@@ -116,27 +219,47 @@
       <bpmndi:BPMNShape id="Gateway_1156kfe_di" bpmnElement="Gateway_1156kfe" isMarkerVisible="true">
         <dc:Bounds x="665" y="55" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1efzi43_di" bpmnElement="Event_0xd3qsa">
-        <dc:Bounds x="842" y="62" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="844" y="105" width="33" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0tk6psf_di" bpmnElement="Activity_14iiicl" isExpanded="true">
-        <dc:Bounds x="290" y="180" width="450" height="310" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1xrfgdl_di" bpmnElement="Activity_0gblh4i">
-        <dc:Bounds x="590" y="290" width="100" height="80" />
+        <dc:Bounds x="290" y="180" width="780" height="310" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0fh5hbh_di" bpmnElement="Activity_1bp5mpr">
         <dc:Bounds x="360" y="290" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_06z7q8v_di" bpmnElement="Activity_1rm4n3q">
+        <dc:Bounds x="630" y="290" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_064g6al_di" bpmnElement="Activity_1698ymf">
+        <dc:Bounds x="890" y="290" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1gxpp75_di" bpmnElement="Activity_1m7bxoy">
+        <dc:Bounds x="500" y="210" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1lgtck7_di" bpmnElement="Activity_1p38qxc">
+        <dc:Bounds x="770" y="210" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0wfxk2c_di" bpmnElement="Activity_0q0ogx7">
+        <dc:Bounds x="770" y="320" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1azid5y_di" bpmnElement="Activity_0wi87jd">
+        <dc:Bounds x="500" y="310" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_03tt12h_di" bpmnElement="Activity_0xz2wmc">
         <dc:Bounds x="450" y="40" width="100" height="80" />
         <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1efzi43_di" bpmnElement="Event_0xd3qsa">
+        <dc:Bounds x="1092" y="62" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1094" y="105" width="33" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1d5yopi_di" bpmnElement="Flow_1d5yopi">
         <di:waypoint x="186" y="80" />
@@ -160,14 +283,18 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1pxgrwz_di" bpmnElement="Flow_1pxgrwz">
         <di:waypoint x="715" y="80" />
-        <di:waypoint x="842" y="80" />
+        <di:waypoint x="1092" y="80" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_0dof86i_di" bpmnElement="Participant_0tnqy1c" isHorizontal="true">
-        <dc:Bounds x="140" y="550" width="380" height="70" />
+        <dc:Bounds x="220" y="550" width="300" height="70" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_150z7w2" bpmnElement="Participant_0ia4r44" isHorizontal="true">
-        <dc:Bounds x="560" y="550" width="370" height="70" />
+      <bpmndi:BPMNShape id="Participant_1n5ay7v_di" bpmnElement="Participant_092j2gd" isHorizontal="true">
+        <dc:Bounds x="530" y="550" width="300" height="70" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0p8muhk" bpmnElement="Participant_07oscts" isHorizontal="true">
+        <dc:Bounds x="850" y="550" width="300" height="70" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1k76tly_di" bpmnElement="Flow_1k76tly">
@@ -178,13 +305,21 @@
         <di:waypoint x="430" y="550" />
         <di:waypoint x="430" y="370" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0hxs5vo_di" bpmnElement="Flow_0hxs5vo">
-        <di:waypoint x="620" y="370" />
-        <di:waypoint x="620" y="550" />
+      <bpmndi:BPMNEdge id="Flow_1v61v66_di" bpmnElement="Flow_1v61v66">
+        <di:waypoint x="650" y="370" />
+        <di:waypoint x="650" y="550" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0n4zu9p_di" bpmnElement="Flow_0n4zu9p">
-        <di:waypoint x="670" y="550" />
-        <di:waypoint x="670" y="370" />
+      <bpmndi:BPMNEdge id="Flow_1dr564d_di" bpmnElement="Flow_1dr564d">
+        <di:waypoint x="710" y="550" />
+        <di:waypoint x="710" y="370" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1r6xj35_di" bpmnElement="Flow_1r6xj35">
+        <di:waypoint x="920" y="370" />
+        <di:waypoint x="920" y="550" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0pg7ovo_di" bpmnElement="Flow_0pg7ovo">
+        <di:waypoint x="970" y="550" />
+        <di:waypoint x="970" y="370" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
